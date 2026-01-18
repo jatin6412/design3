@@ -1,97 +1,309 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Elm Grove Liquor</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Elm Grove Liquor</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+
+<style>
+/* ------------------ GLOBAL ------------------ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    color: #fff;
+    background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+    overflow-x: hidden;
+    padding-top: 80px;
+}
+
+/* ------------------ CANVAS ------------------ */
+#background-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+/* ------------------ NAVBAR ------------------ */
+header {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    background: rgba(0,0,0,0.9);
+    z-index: 1000;
+}
+
+nav {
+    max-width: 1200px;
+    margin: auto;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: bold;
+    color: #ffd700;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 25px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+nav ul li a:hover {
+    color: #ffd700;
+}
+
+.menu-toggle {
+    display: none;
+    font-size: 28px;
+    cursor: pointer;
+    color: white;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+    }
+
+    nav ul {
+        position: absolute;
+        top: 65px;
+        left: 0;
+        width: 100%;
+        background: #111;
+        flex-direction: column;
+        display: none;
+        padding: 20px 0;
+    }
+
+    nav ul.active {
+        display: flex;
+    }
+
+    nav ul li {
+        margin: 10px 0;
+    }
+}
+
+/* ------------------ HERO ------------------ */
+.hero {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+
+.hero p {
+    margin-bottom: 20px;
+}
+
+.btn {
+    background: #ffd700;
+    padding: 10px 25px;
+    color: #000;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+/* ------------------ SECTIONS ------------------ */
+section {
+    padding: 80px 20px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+h2 {
+    text-align: center;
+    color: #ffd700;
+    margin-bottom: 30px;
+}
+
+.product-grid,
+.testimonial-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+.product, .testimonial {
+    background: rgba(255,255,255,0.1);
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.product img {
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+/* ------------------ CONTACT ------------------ */
+form {
+    max-width: 500px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+input, textarea {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: none;
+}
+
+button {
+    padding: 10px;
+    background: #ffd700;
+    border: none;
+    cursor: pointer;
+}
+
+/* ------------------ FOOTER ------------------ */
+footer {
+    text-align: center;
+    padding: 20px;
+    background: #000;
+}
+</style>
 </head>
+
 <body>
-    <canvas id="background-canvas"></canvas>
 
-    <header>
-       <nav>
-    <div class="logo">Elm Grove Liquor</div>
+<canvas id="background-canvas"></canvas>
 
-    <div class="menu-toggle" id="menu-toggle">
-        ☰
+<header>
+    <nav>
+        <div class="logo">Elm Grove Liquor</div>
+        <div class="menu-toggle" id="menu-toggle">☰</div>
+        <ul id="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#products">Products</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+</header>
+
+<section id="home" class="hero">
+    <h1>Welcome to Elm Grove Liquor</h1>
+    <p>Your destination for premium drinks</p>
+    <a href="#products" class="btn">Explore</a>
+</section>
+
+<section id="about">
+    <h2>About Us</h2>
+    <p>Serving quality wines and spirits for over 20 years.</p>
+</section>
+
+<section id="products">
+    <h2>Our Products</h2>
+    <div class="product-grid">
+        <div class="product">
+            <img src="https://www.wineenthusiast.com/wp-content/uploads/2023/05/12_22_The_Best_Burgundy_Wines_HERO.jpg">
+            <h3>Wine</h3>
+        </div>
+        <div class="product">
+            <img src="https://manofmany.com/wp-content/uploads/2023/06/Best-American-Whiskey-brands.jpg">
+            <h3>Whiskey</h3>
+        </div>
+        <div class="product">
+            <img src="https://tse2.mm.bing.net/th/id/OIP.vpWnC3qTHpGFhnPPlUBdewHaEq">
+            <h3>Beer</h3>
+        </div>
     </div>
+</section>
 
-    <ul id="nav-links">
-        <li><a href="#home">Home</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#products">Products</a></li>
-        <li><a href="#contact">Contact</a></li>
-    </ul>
-</nav>
-    </header>
+<section id="contact">
+    <h2>Contact</h2>
+    <form>
+        <input type="text" placeholder="Name">
+        <input type="email" placeholder="Email">
+        <textarea placeholder="Message"></textarea>
+        <button>Send</button>
+    </form>
+</section>
 
-    <section id="home" class="hero">
-        <h1>Welcome to Elm Grove Liquor</h1>
-        <p>Your premier destination for fine wines, spirits, and more.</p>
-        <a href="#products" class="btn">Explore Products</a>
-    </section>
+<footer>
+    © 2026 Elm Grove Liquor
+</footer>
 
-    <section id="about">
-        <h2>About Us</h2>
-        <p>Elm Grove Liquor has been serving the community with quality beverages for over 20 years. We pride ourselves on our extensive selection and knowledgeable staff.</p>
-    </section>
+<script>
+// NAVBAR
+const menuToggle = document.getElementById("menu-toggle");
+const navLinks = document.getElementById("nav-links");
 
-    <section id="products">
-        <h2>Our Products</h2>
-        <div class="product-grid">
-            <div class="product">
-                <img src="https://www.wineenthusiast.com/wp-content/uploads/2023/05/12_22_The_Best_Burgundy_Wines_HERO_Vivino_Wine.com_1920x1280_v2.jpg" alt="Wine Bottle" class="product-img">
-                <h3>Wines</h3>
-                <p>A wide variety of red, white, and rosé wines from around the world.</p>
-            </div>
-            <div class="product">
-                <img src="https://manofmany.com/wp-content/uploads/2023/06/Best-American-Whiskey-brands.jpg" alt="Whisky Bottle" class="product-img">
-                <h3>Spirits</h3>
-                <p>Premium whiskies, vodkas, gins, and more.</p>
-            </div>
-            <div class="product">
-                <img src="https://tse2.mm.bing.net/th/id/OIP.vpWnC3qTHpGFhnPPlUBdewHaEq?w=1920&h=1210&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Beer Bottle" class="product-img">
-                <h3>Beers</h3>
-                <p>Craft beers and local favorites.</p>
-            </div>
-        </div>
-    </section>
+menuToggle.addEventListener("click", () => {
+    navLinks.classList.toggle("active");
+});
 
-    <section id="testimonials">
-        <h2>What Our Customers Say</h2>
-        <div class="testimonial-grid">
-            <div class="testimonial">
-                <p>"Amazing selection and friendly staff!"</p>
-                <cite>- John D.</cite>
-            </div>
-            <div class="testimonial">
-                <p>"Best place for craft beers in town."</p>
-                <cite>- Sarah M.</cite>
-            </div>
-            <div class="testimonial">
-                <p>"Quality wines at great prices."</p>
-                <cite>- Mike R.</cite>
-            </div>
-        </div>
-    </section>
+// CANVAS ANIMATION
+const canvas = document.getElementById("background-canvas");
+const ctx = canvas.getContext("2d");
 
-    <section id="contact">
-        <h2>Contact Us</h2>
-        <p>Visit us at 123 Elm Grove Street or call (555) 123-4567</p>
-        <form>
-            <input type="text" placeholder="Name" required>
-            <input type="email" placeholder="Email" required>
-            <textarea placeholder="Message"></textarea>
-            <button type="submit">Send</button>
-        </form>
-    </section>
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 
-    <footer>
-        <p>&copy; 2023 Elm Grove Liquor. All rights reserved.</p>
-    </footer>
+let particles = [];
 
-    <script src="script.js"></script>
+for (let i = 0; i < 80; i++) {
+    particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: Math.random() * 3 + 1,
+        dx: Math.random() * 2 - 1,
+        dy: Math.random() * 2 - 1
+    });
+}
+
+function animate() {
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    particles.forEach(p => {
+        p.x += p.dx;
+        p.y += p.dy;
+
+        if(p.x < 0 || p.x > canvas.width) p.dx *= -1;
+        if(p.y < 0 || p.y > canvas.height) p.dy *= -1;
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = "#ffd700";
+        ctx.fill();
+    });
+    requestAnimationFrame(animate);
+}
+
+animate();
+</script>
+
 </body>
 </html>
