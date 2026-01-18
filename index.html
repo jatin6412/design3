@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elm Grove Liquor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <canvas id="background-canvas"></canvas>
+    <header>
+        <nav>
+            <div class="logo">Elm Grove Liquor</div>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#products">Products</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section id="home" class="hero">
+        <h1>Welcome to Elm Grove Liquor</h1>
+        <p>Your premier destination for fine wines, spirits, and more.</p>
+        <a href="#products" class="btn">Explore Products</a>
+    </section>
+    <section id="about">
+        <h2>About Us</h2>
+        <p>Elm Grove Liquor has been serving the community with quality beverages for over 20 years. We pride ourselves on our extensive selection and knowledgeable staff.</p>
+    </section>
+    <section id="products">
+        <h2>Our Products</h2>
+        <div class="product-grid">
+            <div class="product">
+                <img src="https://www.wineenthusiast.com/wp-content/uploads/2023/05/12_22_The_Best_Burgundy_Wines_HERO_Vivino_Wine.com_1920x1280_v2.jpg" alt="Wine Bottle" class="product-img">
+                <h3>Wines</h3>
+                <p>A wide variety of red, white, and rosé wines from around the world.</p>
+            </div>
+            <div class="product">
+                <img src="https://manofmany.com/wp-content/uploads/2023/06/Best-American-Whiskey-brands.jpg" alt="Whisky Bottle" class="product-img">
+                <h3>Spirits</h3>
+                <p>Premium whiskies, vodkas, gins, and more.</p>
+            </div>
+            <div class="product">
+                <img src="https://tse2.mm.bing.net/th/id/OIP.vpWnC3qTHpGFhnPPlUBdewHaEq?w=1920&h=1210&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Beer Bottle" class="product-img">
+                <h3>Beers</h3>
+                <p>Craft beers and local favorites.</p>
+            </div>
+        </div>
+    </section>
+    <section id="testimonials">
+        <h2>What Our Customers Say</h2>
+        <div class="testimonial-grid">
+            <div class="testimonial">
+                <p>"Amazing selection and friendly staff!"</p>
+                <cite>- John D.</cite>
+            </div>
+            <div class="testimonial">
+                <p>"Best place for craft beers in town."</p>
+                <cite>- Sarah M.</cite>
+            </div>
+            <div class="testimonial">
+                <p>"Quality wines at great prices."</p>
+                <cite>- Mike R.</cite>
+            </div>
+        </div>
+    </section>
+    <section id="contact">
+        <h2>Contact Us</h2>
+        <p>Visit us at 123 Elm Grove Street or call (555) 123-4567</p>
+        <form>
+            <input type="text" placeholder="Name" required>
+            <input type="email" placeholder="Email" required>
+            <textarea placeholder="Message"></textarea>
+            <button type="submit">Send</button>
+        </form>
+    </section>
+    <footer>
+        <p>&copy; 2023 Elm Grove Liquor. All rights reserved.</p>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
