@@ -102,6 +102,7 @@ nav ul li a:hover {
 
     nav ul li {
         margin: 10px 0;
+        text-align: center;
     }
 }
 
@@ -131,6 +132,7 @@ nav ul li a:hover {
     color: #000;
     text-decoration: none;
     border-radius: 5px;
+    font-weight: bold;
 }
 
 /* ------------------ SECTIONS ------------------ */
@@ -144,26 +146,41 @@ h2 {
     text-align: center;
     color: #ffd700;
     margin-bottom: 30px;
+    font-family: 'Playfair Display', serif;
 }
 
-.product-grid,
-.testimonial-grid {
+.product-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 25px;
 }
 
-.product, .testimonial {
-    background: rgba(255,255,255,0.1);
+.product {
+    background: rgba(255,255,255,0.05);
     padding: 20px;
     border-radius: 10px;
     text-align: center;
+    border: 1px solid rgba(255,255,255,0.1);
+    transition: transform 0.3s ease;
 }
 
+.product:hover {
+    transform: translateY(-5px);
+    border-color: #ffd700;
+}
+
+/* --- IMAGE FIX HERE --- */
 .product img {
     width: 100%;
+    height: 250px; /* Fixed height enforces uniformity */
+    object-fit: cover; /* Crops the image cleanly to fit the box */
     border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.product h3 {
     margin-bottom: 10px;
+    font-size: 1.5rem;
 }
 
 /* ------------------ CONTACT ------------------ */
@@ -175,17 +192,25 @@ form {
 }
 
 input, textarea {
-    padding: 10px;
-    margin-bottom: 10px;
+    padding: 15px;
+    margin-bottom: 15px;
     border-radius: 5px;
     border: none;
+    font-family: inherit;
 }
 
 button {
-    padding: 10px;
+    padding: 15px;
     background: #ffd700;
     border: none;
     cursor: pointer;
+    font-weight: bold;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+button:hover {
+    background: #e6c200;
 }
 
 /* ------------------ FOOTER ------------------ */
@@ -193,6 +218,7 @@ footer {
     text-align: center;
     padding: 20px;
     background: #000;
+    color: #888;
 }
 </style>
 </head>
@@ -216,40 +242,48 @@ footer {
 
 <section id="home" class="hero">
     <h1>Welcome to Elm Grove Liquor</h1>
-    <p>Your destination for premium drinks</p>
-    <a href="#products" class="btn">Explore</a>
+    <p>Your destination for premium drinks and spirits</p>
+    <a href="#products" class="btn">Explore Selection</a>
 </section>
 
 <section id="about">
     <h2>About Us</h2>
-    <p>Serving quality wines and spirits for over 20 years.</p>
+    <p style="text-align: center; max-width: 700px; margin: auto; line-height: 1.6;">
+        Serving quality wines, craft beers, and premium spirits for over 20 years. 
+        We pride ourselves on our curated selection and knowledgeable staff ready to help you find the perfect bottle.
+    </p>
 </section>
 
 <section id="products">
     <h2>Our Products</h2>
     <div class="product-grid">
         <div class="product">
-            <img src="https://www.wineenthusiast.com/wp-content/uploads/2023/05/12_22_The_Best_Burgundy_Wines_HERO.jpg">
-            <h3>Wine</h3>
+            <img src="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=500&q=80" alt="Red Wine">
+            <h3>Fine Wine</h3>
+            <p>From Napa Valley to Burgundy.</p>
         </div>
+        
         <div class="product">
-            <img src="https://manofmany.com/wp-content/uploads/2023/06/Best-American-Whiskey-brands.jpg">
-            <h3>Whiskey</h3>
+            <img src="https://images.unsplash.com/photo-1527281400683-1aae777175f8?auto=format&fit=crop&w=500&q=80" alt="Whiskey Glass">
+            <h3>Premium Whiskey</h3>
+            <p>Aged single malts and smooth blends.</p>
         </div>
+        
         <div class="product">
-            <img src="https://tse2.mm.bing.net/th/id/OIP.vpWnC3qTHpGFhnPPlUBdewHaEq">
-            <h3>Beer</h3>
+            <img src="https://images.unsplash.com/photo-1535958636474-b021ee8874a3?auto=format&fit=crop&w=500&q=80" alt="Craft Beer">
+            <h3>Craft Beer</h3>
+            <p>Local brews and international favorites.</p>
         </div>
     </div>
 </section>
 
 <section id="contact">
-    <h2>Contact</h2>
+    <h2>Contact Us</h2>
     <form>
-        <input type="text" placeholder="Name">
-        <input type="email" placeholder="Email">
-        <textarea placeholder="Message"></textarea>
-        <button>Send</button>
+        <input type="text" placeholder="Your Name">
+        <input type="email" placeholder="Your Email">
+        <textarea placeholder="Your Message" rows="5"></textarea>
+        <button type="button">Send Message</button>
     </form>
 </section>
 
@@ -270,20 +304,29 @@ menuToggle.addEventListener("click", () => {
 const canvas = document.getElementById("background-canvas");
 const ctx = canvas.getContext("2d");
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
 
 let particles = [];
 
-for (let i = 0; i < 80; i++) {
-    particles.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        r: Math.random() * 3 + 1,
-        dx: Math.random() * 2 - 1,
-        dy: Math.random() * 2 - 1
-    });
+// Initialize particles
+function initParticles() {
+    particles = [];
+    for (let i = 0; i < 80; i++) {
+        particles.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            r: Math.random() * 3 + 1,
+            dx: Math.random() * 1 - 0.5, // Slower movement
+            dy: Math.random() * 1 - 0.5
+        });
+    }
 }
+initParticles();
 
 function animate() {
     ctx.clearRect(0,0,canvas.width,canvas.height);
@@ -291,12 +334,13 @@ function animate() {
         p.x += p.dx;
         p.y += p.dy;
 
+        // Bounce off walls
         if(p.x < 0 || p.x > canvas.width) p.dx *= -1;
         if(p.y < 0 || p.y > canvas.height) p.dy *= -1;
 
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = "#ffd700";
+        ctx.fillStyle = "rgba(255, 215, 0, 0.5)"; // Transparent Gold
         ctx.fill();
     });
     requestAnimationFrame(animate);
